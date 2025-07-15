@@ -1,0 +1,21 @@
+# Node.js stuff
+node_modules
+dist
+.nyc_output
+coverage
+
+# Version control
+.git
+.gitignore
+
+# Docker files themselves
+Dockerfile
+.dockerignore
+
+# OS / editor files
+*.log
+*.swp
+*.swo
+*.DS_Store
+.vscode
+.env

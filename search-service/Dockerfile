@@ -1,0 +1,21 @@
+# Base image with Node
+FROM node:24.2-alpine
+
+# Create app directory
+WORKDIR /app
+
+# Copy package files and install dependencies first
+COPY package*.json ./
+RUN npm install
+
+# Copy the rest of the app
+COPY . .
+
+# Expose port
+EXPOSE 4000
+
+# Generate prisma client and types
+RUN npm run generate:types
+
+# Start the application
+CMD ["npm", "start"]

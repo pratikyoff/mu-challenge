@@ -1,0 +1,34 @@
+.movie-card {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.movie-poster {
+  width: 120px;
+  height: 180px;
+  object-fit: cover;
+  background: #eee;
+  flex-shrink: 0;
+  display: block;
+}
+
+.movie-poster.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  font-size: 12px;
+}
+
+.movie-info {
+  padding: 12px;
+  text-align: left;
+}
+
+.movie-plot {
+  margin-top: 8px;
+}

@@ -1,0 +1,72 @@
+name: movie-search-dev
+
+services:
+  db:
+    image: postgres:14
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: movie_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  search-service:
+    container_name: search-service
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4000:4000"
+      - "9229:9229"  # For debugging
+    env_file: ./search-service/.env
+    volumes:
+      - ./search-service:/app
+      - movie-search_node_modules:/app/node_modules
+    depends_on:
+      - db
+
+  migrate-db:
+    container_name: migrate-db
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile.dev
+    env_file: ./search-service/.env
+    command: ["sh", "-c", "sleep 2 && npm run migrate:dev"]
+    volumes:
+      - ./search-service:/app
+      - movie-search_node_modules:/app/node_modules
+    depends_on:
+      - db
+      - search-service
+
+  ingest-movies:
+    container_name: ingest-movies
+    build:
+      context: ./search-service
+      dockerfile: Dockerfile.dev
+    env_file: ./search-service/.env
+    command: ["sh", "-c", "sleep 5 && npm run ingest:movies"]
+    volumes:
+      - ./search-service:/app
+      - movie-search_node_modules:/app/node_modules
+    depends_on:
+      - migrate-db
+  
+  search-ui:
+    container_name: search-ui
+    build:
+      context: ./search-ui
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./search-ui:/app
+      - movie-search_ui_node_modules:/app/node_modules
+
+volumes:
+  postgres_data:
+  movie-search_node_modules:
+  movie-search_ui_node_modules:

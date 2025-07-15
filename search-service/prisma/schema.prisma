@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model movie {
+  id       Int     @id @default(autoincrement())
+  title    String  @db.VarChar(500)
+  year     Int
+  director String? @db.VarChar(500)
+  plot     String? @db.VarChar(2000)
+  poster   String? @db.VarChar(500)
+}

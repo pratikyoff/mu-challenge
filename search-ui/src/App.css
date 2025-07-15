@@ -1,0 +1,15 @@
+.App {
+  text-align: center;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.movie-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.error {
+  color: red;
+}
