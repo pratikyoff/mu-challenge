@@ -18,13 +18,13 @@ The repository also contains Docker configurations to run the full stack locally
 2. Build and start the containers in development mode:
 
    ```bash
-   docker compose -f compose.dev.yaml up --build
+   docker compose -f compose.dev.yaml up -d
    ```
 
 3. (Optional) If you want to run the app in optimized production mode, use:
 
    ```bash
-   docker compose -f compose.prod.yaml up --build
+   docker compose -f compose.prod.yaml up -d
    ```
 
 If you are using an older Compose version, run `docker-compose` instead of `docker compose`.
